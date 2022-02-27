@@ -1,0 +1,179 @@
+;ret the local counter: -1
+;tret the local counter: -2
+;num the local counter: -1
+;result the local counter: -2
+;IR op1:code
+;STRING_DECL op1:input result:"Please enter an integer number: "
+;STRING_DECL op1:eol result:"\n"
+;PUSH
+;PUSH
+;PUSH
+;PUSH
+;PUSH
+;JSR result:main
+;HALT
+;LABEL result:factorial
+;LINK op1:3
+;STOREI op1:1 result:T0
+;NE op1:$2 op2:T0 result:label1
+;STOREI op1:1 result:T1
+;STOREI op1:T1 result:$3
+;UNLINK
+;RET
+;JUMP result:label2
+;LABEL result:label1
+;STOREI op1:1 result:T2
+;SUBI op1:$2 op2:T2 result:T3
+;PUSHREG
+;PUSH
+;PUSH result:T3
+;JSR result:factorial
+;POP
+;POP result:T4
+;POPREG
+;STOREI op1:T4 result:$-2
+;MULI op1:$-2 op2:$2 result:T5
+;STOREI op1:T5 result:$-1
+;LABEL result:label2
+;STOREI op1:$-1 result:$3
+;UNLINK
+;RET
+;LABEL result:main
+;LINK op1:3
+;WRITES op1:input
+;READI result:$-1
+;STOREI op1:1 result:T6
+;NE op1:$-1 op2:T6 result:label3
+;STOREI op1:1 result:T7
+;STOREI op1:T7 result:$-2
+;JUMP result:label4
+;LABEL result:label3
+;STOREI op1:1 result:T8
+;LE op1:$-1 op2:T8 result:label5
+;PUSHREG
+;PUSH
+;PUSH result:$-1
+;JSR result:factorial
+;POP
+;POP result:T9
+;POPREG
+;STOREI op1:T9 result:$-2
+;JUMP result:label6
+;LABEL result:label5
+;STOREI op1:0 result:T10
+;STOREI op1:T10 result:$-2
+;LABEL result:label6
+;LABEL result:label4
+;WRITEI op1:$-2
+;WRITES op1:eol
+;STOREI op1:0 result:T11
+;STOREI op1:T11 result:$2
+;UNLINK
+;RET
+
+var T0
+var T1
+var T10
+var T11
+var T2
+var T3
+var T4
+var T5
+var T6
+var T7
+var T8
+var T9
+str input "Please enter an integer number: "
+str eol "\n"
+push
+push
+push
+push
+push
+jsr main
+sys halt
+label factorial
+link 3
+move 1 r0
+move r0 T0
+move T0 r0
+cmpi $2 r0
+jne label1
+move 1 r0
+move r0 T1
+move T1 r0
+move r0 $3
+unlnk
+ret
+jmp label2
+label label1
+move 1 r0
+move r0 T2
+move $2 r0
+subi T2 r0
+move r0 T3
+push r0
+push
+push T3
+jsr factorial
+pop
+pop T4
+pop r0
+move T4 r0
+move r0 $-2
+move $2 r0
+muli $-2 r0
+move r0 T5
+move T5 r0
+move r0 $-1
+label label2
+move $-1 r0
+move r0 $3
+unlnk
+ret
+label main
+link 3
+sys writes input
+sys readi $-1
+move 1 r0
+move r0 T6
+move T6 r0
+cmpi $-1 r0
+jne label3
+move 1 r0
+move r0 T7
+move T7 r0
+move r0 $-2
+jmp label4
+label label3
+move 1 r0
+move r0 T8
+move T8 r0
+cmpi $-1 r0
+jle label5
+push r0
+push
+push $-1
+jsr factorial
+pop
+pop T9
+pop r0
+move T9 r0
+move r0 $-2
+jmp label6
+label label5
+move 0 r0
+move r0 T10
+move T10 r0
+move r0 $-2
+label label6
+label label4
+sys writei $-2
+sys writes eol
+move 0 r0
+move r0 T11
+move T11 r0
+move r0 $2
+unlnk
+ret
+sys halt

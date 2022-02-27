@@ -1,0 +1,9 @@
+;a the local counter: 0
+;b the local counter: 0
+;c the local counter: 0
+;x the local counter: 0
+;y the local counter: 0
+;z the local counter: 0
+;h the local counter: 0
+;j the local counter: 0
+;k the local counter: 0
